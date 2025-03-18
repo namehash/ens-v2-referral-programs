@@ -6,14 +6,18 @@ These contracts are designed to work with Namechain's **ETHRegistrar** but can b
 
 ## Goals
 
-The goals of the referral program proposed here are to enable enable _opt-in_ usage and maximize flexibility and rapid iteration. The deployment and usage of these referral programs are permissionless: ecosystem participants can decide whether to deploy one or not, and clients can choose whether to use one or not. The contracts do not modify core ENSv2 contracts, nor do they require any special behavior from the core ENSv2 contracts.
+The goals of the referral program proposed here are to enable enable _opt-in_ usage and maximize flexibility and rapid iteration. The deployment and usage of these referral programs are permissionless: ecosystem participants can decide whether or not to deploy a program, and clients can choose whether or not to use one. The contracts do _not_ modify core ENSv2 contracts, nor do they require any special behavior from the core ENSv2 contracts.
 
 Because each program's logic and funds are isolated from the other's, rapid iteration with different referral program schemes and reward amounts is trivial. Many referral programs can be active at any one time, each with different terms and a different commission treasury. For illustration, this repo implements:
 
-1. `PercentReferralProgram` — rewards referrers with a constant commission `%` based on the total value of the registration/renewal as calculated by the ETHRegistry
-2. `DurationReferralProgram` — only rewards referrers that refer a registration/renewal with a duration greater than 1 year
-3. `LoyaltyReferralProgram` — demonstrates rewarding a referrer an additional 1% of registration/renewal value for every 100 years of duration they've facilitated payment for over all of their referrals
-4. `AllowlistReferralProgram` — demonstrates the usage of `referrerData` to support arbitrary logic & program-specific data, specifically the requirement that a given referrer be on an owner-provided merkletree-based allowlist.
+1. [`PercentReferralProgram`](./src/examples/PercentReferralProgram.sol)
+  - rewards referrers with a constant commission `%` based on the total value of the registration/renewal as calculated by the ETHRegistry
+2. [`DurationReferralProgram`](./src/examples/DurationReferralProgram.sol)
+  - only rewards referrers that refer a registration/renewal with a duration greater than 1 year
+3. [`LoyaltyReferralProgram`](./src/examples/LoyaltyReferralProgram.sol)
+  - rewards referrers an additional 1% of registration/renewal value for every 100 years of duration they've facilitated
+4. [`AllowlistReferralProgram`](./src/examples/AllowlistReferralProgram.sol)
+  - uses `referrerData` to implement an allowlist of referrers, demonstrating arbitrary program-specific argument data & conditions
 
 ## How it Works (TL;DR Version)
 
