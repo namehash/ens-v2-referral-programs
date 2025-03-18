@@ -32,9 +32,9 @@ First, observe the `IReferralProgram` interface specification and how it defines
 
 [**./src/IReferralProgram.sol**](./src/IReferralProgram.sol) — see full file for comments
 
-```diff solidity
+```solidity
 interface IReferralProgram {
-    event Referral(string name, address referrer);
+    event Referral(string name, address referrer); // here
 
     function register(
         string calldata name,
@@ -44,15 +44,15 @@ interface IReferralProgram {
         address resolver,
         uint96 flags,
         uint64 duration,
-+        address referrer,
-+        bytes calldata referralData
+        address referrer,            // here
+        bytes calldata referralData  // here
     ) external payable returns (uint256 tokenId);
 
     function renew(
       string calldata name,
       uint64 duration,
-+      address referrer,
-+      bytes calldata referralData
+      address referrer,              // here
+      bytes calldata referralData    // here
     ) external payable;
 }
 
