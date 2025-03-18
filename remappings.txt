@@ -1,0 +1,10 @@
+@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/
+buffer/=lib/namechain/contracts/lib/buffer/contracts/
+ens-contracts/=lib/namechain/contracts/lib/ens-contracts/contracts/
+erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/
+forge-std/=lib/forge-std/src/
+halmos-cheatcodes/=lib/openzeppelin-contracts/lib/halmos-cheatcodes/src/
+namechain/=lib/namechain/contracts/
+openzeppelin-contracts-upgradeable/=lib/namechain/contracts/lib/openzeppelin-contracts-upgradeable/
+openzeppelin-contracts/=lib/openzeppelin-contracts/
+verifiable-factory/=lib/namechain/lib/verifiable-factory/
