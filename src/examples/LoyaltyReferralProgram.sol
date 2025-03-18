@@ -37,12 +37,14 @@ contract LoyaltyReferralProgram is ReferralProgram {
         // no-op if no referrer
         if (referrer == address(0)) return;
 
+        // update referrer's cumulative duration
+        // NOTE: placed before balance check so that referrers accrue loyalty despite availability
+        //       of commission funds
+        referralDurations[referrer] += duration;
+
         // no-op if no program balance
         uint256 balance = address(this).balance;
         if (balance == 0) return;
-
-        // update referrer's cumulative duration
-        referralDurations[referrer] += duration;
 
         // calculate commission percent (1% every 100 years)
         uint256 commissionPercent = (referralDurations[referrer] * BONUS_RATE) / (YEARS_PER_BONUS * 365 days);
