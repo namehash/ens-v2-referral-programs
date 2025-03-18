@@ -97,11 +97,11 @@ abstract contract ReferralProgram is IReferralProgram, Ownable {
     ) internal virtual;
 
     /**
-     * @dev Allows owner to close the referral cycle by withdrawing funds
+     * @dev Allows owner to close the referral referral by withdrawing funds
      *   NOTE: optional, left for illustrative purposes
      * @param to funds destination address
      */
-    function closeCycle(address to) external onlyOwner {
+    function close(address to) external onlyOwner {
         payable(to).transfer(address(this).balance);
     }
 
