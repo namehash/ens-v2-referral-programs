@@ -6,13 +6,13 @@ import {IETHRegistrar} from "namechain/src/registry/IETHRegistrar.sol";
 import {IRegistry} from "namechain/src/registry/IRegistry.sol";
 import {IPriceOracle} from "namechain/src/registry/IPriceOracle.sol";
 
-import {IReferralCycle} from "./IReferralCycle.sol";
+import {IReferralProgram} from "./IReferralProgram.sol";
 
 /**
- * @title BaseReferralCycle
- * @dev Base implementation for referral program. Inheriting contracts must implement _processReferral.
+ * @title ReferralProgram
+ * @dev Base implementation for an ENSv2 referral program. Inheriting contracts must implement _processReferral.
  */
-abstract contract BaseReferralCycle is IReferralCycle, Ownable {
+abstract contract ReferralProgram is IReferralProgram, Ownable {
     IETHRegistrar public immutable registrar;
 
     constructor(IETHRegistrar _registrar) Ownable(msg.sender) {

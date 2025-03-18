@@ -6,7 +6,7 @@ import {IRegistry} from "namechain/src/registry/IRegistry.sol";
 /**
  * @dev Interface for an ENSv2 Referral Program that supports both registration & renewals.
  */
-interface IReferralCycle {
+interface IReferralProgram {
     /**
      * @dev Emitted when a registration/renewal is referred. Implementations MAY choose to emit
      *   further events specifying information like calculated comission.

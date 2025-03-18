@@ -3,15 +3,15 @@ pragma solidity ^0.8.19;
 
 import {IPriceOracle} from "namechain/src/registry/IPriceOracle.sol";
 
-import "./PercentReferralCycle.sol";
+import "../ReferralProgram.sol";
 
 /**
- * @title LoyaltyReferralCycle
- * @dev Referrers earn increased commission rates based on the cumulative duration
- * of their referral relationships. For every 100 years of cumulative referral time,
- * referrers receive an additional 1% commission bonus, up to the maximum rate.
+ * @title LoyaltyReferralProgram
+ * @dev In this program, referrers earn increased commission rates based on the cumulative duration
+ * their referrals have driven. For every 100 years of cumulative referral time, referrers receive
+ * a 1% commission bonus, up to the maximum rate of 20%.
  */
-contract LoyaltyReferralCycle is BaseReferralCycle {
+contract LoyaltyReferralProgram is ReferralProgram {
     event ReferralWithCommission(string name, address referrer, uint256 commission);
 
     // Track cumulative referral duration for each referrer
@@ -22,7 +22,7 @@ contract LoyaltyReferralCycle is BaseReferralCycle {
     uint256 private constant BONUS_RATE = 1_00; // 1% in bips
     uint256 private constant MAX_COMMISSION_PERCENT = 20_00; // 20% in bips
 
-    constructor(IETHRegistrar _registrar) BaseReferralCycle(_registrar) {}
+    constructor(IETHRegistrar _registrar) ReferralProgram(_registrar) {}
 
     /**
      * @dev Process referral by calculating and paying out commission with loyalty bonus
@@ -37,30 +37,31 @@ contract LoyaltyReferralCycle is BaseReferralCycle {
         // no-op if no referrer
         if (referrer == address(0)) return;
 
-        // no-op if no commission treasury
+        // no-op if no program balance
         uint256 balance = address(this).balance;
         if (balance == 0) return;
 
         // update referrer's cumulative duration
         referralDurations[referrer] += duration;
 
-        // calculate commission percent (1% per 100 years)
+        // calculate commission percent (1% every 100 years)
         uint256 commissionPercent = (referralDurations[referrer] * BONUS_RATE) / (YEARS_PER_BONUS * 365 days);
 
-        // Math.max(commissionPercent, MAX_COMMISSION_PERCENT)
+        // ensure maximum commission percent: Math.max(commissionPercent, MAX_COMMISSION_PERCENT)
         commissionPercent = commissionPercent > MAX_COMMISSION_PERCENT ? MAX_COMMISSION_PERCENT : commissionPercent;
 
         // calculate commission amount (bips)
         uint256 totalPrice = price.base + price.premium;
         uint256 commission = (totalPrice * commissionPercent) / 10_000;
 
-        // Math.min(commission, balance)
+        // ensure we can't spend more than program balance: Math.min(commission, balance)
+        // NOTE: also ensures that entire balance can be used, with no dust wei left behind
         commission = commission > balance ? balance : commission;
 
-        // pay referrer
+        // pay referrer their commission
         payable(referrer).transfer(commission);
 
-        // emit referral event
+        // emit referral event w/ commission info
         emit ReferralWithCommission(name, referrer, commission);
     }
 }

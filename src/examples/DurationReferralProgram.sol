@@ -4,22 +4,23 @@ pragma solidity >=0.8.13;
 import {IETHRegistrar} from "namechain/src/registry/IETHRegistrar.sol";
 import {IPriceOracle} from "namechain/src/registry/IPriceOracle.sol";
 
-import {PercentReferralCycle} from "./PercentReferralCycle.sol";
+import {PercentReferralProgram} from "./PercentReferralProgram.sol";
 
 /**
- * @title DurationReferralCycle
- * @dev Implements a percent referral system that only pays commission for registrations >= 1 year.
+ * @title DurationReferralProgram
+ * @dev Implements a referral program that pays % commission for registrations/renewals with a
+ *   duration over some threshold (ex. >= 1 year).
  */
-contract DurationReferralCycle is PercentReferralCycle {
+contract DurationReferralProgram is PercentReferralProgram {
     // minimum duration threshold of 1 year (in seconds)
     uint64 private constant MIN_DURATION = 365 days;
 
     constructor(IETHRegistrar _registrar, uint16 _commissionPercent)
-        PercentReferralCycle(_registrar, _commissionPercent)
+        PercentReferralProgram(_registrar, _commissionPercent)
     {}
 
     /**
-     * @dev Process referral by calculating and paying out commission if duration >= 1 year
+     * @dev Process referral by calculating and paying out commission if duration >= MIN_DURATION
      */
     function _processReferral(
         string calldata name,
