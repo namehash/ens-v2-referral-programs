@@ -11,22 +11,22 @@ The goals of the referral program proposed here are to enable enable _opt-in_ us
 Because each program's logic and funds are isolated from the other's, rapid iteration with different referral program schemes and reward amounts is trivial. Many referral programs can be active at any one time, each with different terms and a different commission treasury. For illustration, this repo implements:
 
 1. [`PercentReferralProgram`](./src/examples/PercentReferralProgram.sol)
-  - rewards referrers with a constant commission `%` based on the total value of the registration/renewal as calculated by the ETHRegistry
+    - rewards referrers with a constant commission `%` based on the total value of the registration/renewal as calculated by the ETHRegistry
 2. [`DurationReferralProgram`](./src/examples/DurationReferralProgram.sol)
-  - only rewards referrers that refer a registration/renewal with a duration greater than 1 year
+    - only rewards referrers that refer a registration/renewal with a duration greater than 1 year
 3. [`LoyaltyReferralProgram`](./src/examples/LoyaltyReferralProgram.sol)
-  - rewards referrers an additional 1% of registration/renewal value for every 100 years of duration they've facilitated
+    - rewards referrers an additional 1% of registration/renewal value for every 100 years of duration they've facilitated
 4. [`AllowlistReferralProgram`](./src/examples/AllowlistReferralProgram.sol)
-  - uses `referrerData` to implement an allowlist of referrers, demonstrating arbitrary program-specific argument data & conditions
+    - uses `referrerData` to implement an allowlist of referrers, demonstrating arbitrary program-specific argument data & conditions
 
 ## How it Works (TL;DR Version)
 
 1. Anyone can deploy a `ReferralProgram` contract with their own terms & funds
-  - for example, the ENS DAO may opt to sponsor one or many different `ReferralProgram`s, each with different terms & commission treasury
+    - for example, the ENS DAO may opt to sponsor one or many different `ReferralProgram`s, each with different terms & commission treasury
 2. ENS apps can direct their users to use a specific `ReferralProgram#register` or `ReferralProgram#renew` to register/renew names, including the additional `address referrer` and `bytes referrerData` arguments.
 3. The `ReferralProgram` forwards the request to the `ETHRegistrar` as normal, registering or renewing the relevant name
 4. The `ReferralProgram` can calculate the referrer's commission (if any), and optionally credit the referrer in the same transaction.
-  - arbitrary logic can be specified for how a `ReferralProgram` rewards referrers
+    - arbitrary logic can be specified for how a `ReferralProgram` rewards referrers
 
 ## How it Works (~~Taylor's~~ Full Version)
 
