@@ -31,6 +31,30 @@ Because each program's logic and funds are isolated from the other's, rapid iter
 
 ## How it Works (~~Taylor's~~ Full Version)
 
+```mermaid
+flowchart LR
+    X(User A) --> A
+    Y --> A
+    Y(User B) --> B
+    Y --> C
+    Z(User C) --> C
+
+    R(Referrer A)
+    T(Referrer B)
+
+    A -->|comission| R
+
+    A["ReferralProgram 1
+    5 ETH"] -->|register/renew| D[ETHRegistrar]
+    B["ReferralProgram 2
+    1 ETH"] -->|register/renew| D
+    C["ReferralProgram 3
+    0 ETH"] -->|register/renew| D
+    D --> E[ETHRegistry]
+
+    C -->|comission| T
+```
+
 Namechain's `ETHRegistry` allows any address to register or renew a name on behalf of an `owner`, as long as the `msg.sender` pays for the registration or renewal. This flexible behavior allows for a host of UX benefits in ENSv2, one of which is this permissionless Referral Program implementation.
 
 First, observe the `IReferralProgram` interface specification and how it defines an event and two functions, `register` and `renew`. These functions mirror their `ETHRegistrar` counterparts, with the sole addition of the `referrer` and `referrerData` parameters.
