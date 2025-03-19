@@ -5,4 +5,8 @@ import {Test, console} from "forge-std/Test.sol";
 
 contract CounterTest is Test {
     function setUp() public {}
+
+    function test_nothing() public pure {
+        assertTrue(true);
+    }
 }
