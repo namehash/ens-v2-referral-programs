@@ -1,3 +1,22 @@
+<!-- VERTICAL WHITESPACE -->
+
+<br>
+
+<!-- BANNER IMAGE -->
+
+<p align="center">
+  <a href="https://namehashlabs.org/ens-referral-program">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset=".github/banner-dark.png">
+      <img alt="ENSv2 Referral Programs" src=".github/banner-light.png" width="819" height="360">
+    </picture>
+  </a>
+</p>
+
+<!-- VERTICAL WHITESPACE -->
+
+<br>
+
 # ENSv2 Referral Programs
 
 This repo showcases a **permissionless ENSv2 Referral Program for name registrations and name renewals** and provides implementation contracts. These referral programs are permissionless to _create_ **and** (by default) are permissionless to _participate_ in. Many different referral programs may exist, each with their own reward logic and isolated commission treasury.
